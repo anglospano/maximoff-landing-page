@@ -62,11 +62,15 @@ Publicar:
 
 ```bash
 git add -A
-git commit -m "contenido: qué cambia, en una línea"
+git commit -m "feat(inicio): qué cambia, en una línea"
 git push origin main
 ```
 
 En 1–2 minutos el cambio está en [fundmaximoff.org](https://fundmaximoff.org).
+
+Los commits siguen [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/): `tipo(alcance): descripción`
+(`feat`, `fix`, `style`, `perf`, `refactor`, `docs`, `chore`, `ci`, `revert`). Tabla y ejemplos en
+`.claude/skills/publicar-cambio/SKILL.md`.
 
 Deshacer algo publicado: `git revert <commit>` y `git push origin main`.
 
@@ -97,6 +101,7 @@ y Claude los haga respetando la línea gráfica, los pruebe y, con aprobación, 
 | `CLAUDE.md` | Rol del agente, reglas (línea gráfica, página RTE protegida, solo hechos, solo `main`). |
 | `.claude/skills/publicar-cambio/SKILL.md` | Paso a paso: sincronizar → editar → probar → mostrar → aprobar → commit + push → verificar deploy. |
 | `.claude/settings.json` | Permisos: puede hacer `git add/commit/push origin main` y `npm run …` sin preguntar; tiene prohibido `--force`, crear ramas, `reset --hard` y editar `.github/` o `.htaccess`. |
+| `.claude/skills/google-search-console/` | Experto y tutor de Search Console: lecciones paso a paso para que Jason lo maneje solo, rutina mensual, glosario y diagnósticos de indexación. |
 | `.mcp.json` | MCP de GitHub (repos + actions) para revisar si el deploy salió bien. |
 | `diseno/LINEA-GRAFICA.md` | Colores, tipografía, componentes y voz que el agente debe respetar. |
 
@@ -143,6 +148,8 @@ y Claude los haga respetando la línea gráfica, los pruebe y, con aprobación, 
 ---
 
 ### 4. Google (SEO, una vez publicado)
+
+> Con el agente: abre Claude Code en esta carpeta y escribe *"quiero aprender a configurar Google Search Console"*. La skill `google-search-console` lo guía lección por lección.
 
 1. [Google Search Console](https://search.google.com/search-console) → **Agregar propiedad → Dominio** → `fundmaximoff.org`.
    Verifica con el registro TXT que indica Google (en GoDaddy: **Dominios → DNS → Agregar registro TXT**).

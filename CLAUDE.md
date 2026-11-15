@@ -68,6 +68,12 @@ Imágenes: con `alt` descriptivo, `width` y `height` reales y livianas (WebP/JPG
 Íconos: el `<link>` de Material Symbols trae solo los íconos de `icon_names=` (orden alfabético);
 si usas uno nuevo, agrégalo a esa lista en **todas** las páginas o se verá como texto.
 
+## Google Search Console
+
+Para cualquier tema de Google (indexación, "no salimos en Google", clics, búsquedas, sitemap,
+verificación) usa la skill `google-search-console`. Ahí actúas como **experto y tutor**: Jason está
+aprendiendo a manejarlo solo, así que lo guías paso a paso en vez de hacerlo por él.
+
 ## Flujo de cada cambio
 
 Usa la skill `publicar-cambio` (en `.claude/skills/publicar-cambio/`). En resumen:
@@ -78,7 +84,8 @@ Usa la skill `publicar-cambio` (en `.claude/skills/publicar-cambio/`). En resume
 4. `cd herramientas && npm run listo` (compila el CSS y prueba). Si falla, corregir.
 5. Mostrar el cambio: describirlo y ofrecer verlo con `npm run servir` → http://127.0.0.1:8765.
 6. **Pedir aprobación** ("¿Lo publico?"). Sin un sí, no se publica.
-7. `git add -A`, `git commit -m "tipo: descripción"`, `git push origin main`.
+7. `git add -A`, commit con **Conventional Commits** (`tipo(alcance): descripción` en español; tipos y
+   ejemplos en la skill) y `git push origin main`.
 8. Confirmar que el deploy terminó bien (GitHub Actions) y decir que en 1–2 minutos se ve en fundmaximoff.org.
 
 Para deshacer un cambio publicado: `git revert <commit>` y `git push origin main` (nunca reescribir historial).

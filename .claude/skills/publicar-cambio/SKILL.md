@@ -67,12 +67,49 @@ Si piden ajustes, vuelve al paso 3.
 ```bash
 git add -A
 git status --short                     # revisa que no vaya nada raro (.env, archivos personales, node_modules)
-git commit -m "<tipo>: <qué cambia, en una línea>"
+git commit -m "<tipo>(<alcance>): <descripción>"
 git push origin main
 ```
 
-Tipos de commit: `contenido` (textos), `diseno` (estilos), `rte` (página de transparencia o sus PDF),
-`imagen`, `pagina` (página nueva), `arreglo`.
+### Mensaje de commit: Conventional Commits
+
+Formato: `tipo(alcance): descripción`, con la descripción **en español, en minúscula, en modo
+imperativo, sin punto final y de máximo ~72 caracteres**. Un commit = un cambio con sentido propio;
+si el pedido tuvo dos cambios distintos (ej. un texto y un PDF del RTE), haz dos commits.
+
+| Tipo | Cuándo |
+|---|---|
+| `feat` | Algo nuevo que se ve en el sitio: sección, página, botón, imagen, PDF del RTE |
+| `fix` | Corregir algo que estaba mal: error de texto, enlace roto, dato equivocado, algo que se veía mal |
+| `style` | Ajuste solo visual sin cambiar contenido (espacios, tamaños, colores dentro de la línea gráfica) |
+| `perf` | Hacer el sitio más rápido (imágenes más livianas, menos archivos) |
+| `refactor` | Reorganizar el HTML/CSS sin cambiar lo que se ve |
+| `docs` | README, `CLAUDE.md`, la skill, `diseno/` |
+| `chore` | Mantenimiento: dependencias, `.gitignore`, limpieza |
+| `ci` | `.github/workflows/` (solo con autorización de Luis) |
+| `revert` | Deshacer un commit (lo genera `git revert`) |
+
+Alcances: `inicio`, `rte`, `seo`, `contacto`, `voluntariado`, `lineas`, `diseno`, `404`, `herramientas`, `agente`.
+Si el cambio toca varias zonas, usa la principal o déjalo sin alcance: `feat: agregar sección de eventos`.
+
+Cuerpo opcional (línea en blanco y luego el porqué) cuando el cambio no se explica solo:
+
+```
+fix(rte): corregir fecha de corte del estado financiero
+
+El formato 5245 radicado dice 23/09/2026; la página decía 22/09/2026.
+```
+
+Ejemplos:
+
+```
+feat(rte): publicar formato 5245 y estatutos en PDF
+fix(contacto): corregir número de WhatsApp
+feat(inicio): agregar sección de próximos talleres
+style(lineas): aumentar espacio entre tarjetas en celular
+fix(seo): actualizar descripción del inicio tras cambio de enfoque
+perf: convertir fotos de talleres a webp
+```
 
 Si el push es rechazado porque `main` avanzó: `git pull --rebase origin main`, vuelve a correr
 `npm run listo` y repite el push. Nunca uses `--force`.
