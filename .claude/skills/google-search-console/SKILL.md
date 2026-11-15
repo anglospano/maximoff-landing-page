@@ -36,7 +36,7 @@ Si Jason dice "hazlo tú rápido" o tiene afán, dale la respuesta directa y al 
 |---|---|
 | Propiedad | **Dominio** `fundmaximoff.org` (cubre http, https y www) |
 | Sitemap | `https://fundmaximoff.org/sitemap.xml` |
-| Páginas | Inicio `/` · Transparencia RTE `/transparencia/rte2026/` |
+| Páginas | Inicio `/` · Transparencia RTE `/rte/` |
 | DNS | Administrado en GoDaddy (Dominios → fundmaximoff.org → DNS) |
 | Cambios al sitio | Con la skill `publicar-cambio` (push a `main` → deploy automático) |
 
@@ -68,7 +68,7 @@ Explícale: "Dominio" es mejor que "Prefijo de URL" porque cubre todas las varia
 
 ### Lección 3 · Pedir indexación de una página
 
-1. Barra superior **Inspeccionar cualquier URL** → pegar `https://fundmaximoff.org/transparencia/rte2026/`.
+1. Barra superior **Inspeccionar cualquier URL** → pegar `https://fundmaximoff.org/rte/`.
 2. Si dice "La URL no está en Google" → **Solicitar indexación** (tarda 1–2 minutos en procesar).
 3. Usarlo **solo** para páginas nuevas o cambios importantes; no hace falta para cada cambio pequeño.
    Hay un límite diario de solicitudes.

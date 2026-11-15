@@ -27,7 +27,7 @@ simplificada a una sola rama: **cada push a `main` se prueba y se publica solo e
 | Carpeta / archivo | Qué contiene |
 |---|---|
 | `public_html/` | El sitio. Es exactamente lo que se publica. Los HTML se editan aquí directamente. |
-| `public_html/transparencia/rte2026/` | Página del registro web del Régimen Tributario Especial y sus PDF (`docs/`). |
+| `public_html/rte/` | Página del registro web del Régimen Tributario Especial y sus PDF (`docs/`). |
 | `herramientas/` | Tailwind (CSS), pruebas, servidor local y scripts del deploy. |
 | `herramientas/src/input.css` | Componentes de diseño: `.card`, `.btn-primary`, `.eyebrow`, `.rte-row`… |
 | `herramientas/tailwind.config.js` | Colores y fuentes de la marca. |

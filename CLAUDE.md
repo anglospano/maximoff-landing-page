@@ -13,8 +13,8 @@ antes de hacerlo y qué cambió después.
 |---|---|
 | `public_html/` | El sitio. Es exactamente lo que se publica. Aquí editas los HTML. |
 | `public_html/index.html` | Página de inicio |
-| `public_html/transparencia/rte2026/index.html` | Página legal del Régimen Tributario Especial (protegida, ver abajo) |
-| `public_html/transparencia/rte2026/docs/` | PDF descargables del RTE |
+| `public_html/rte/index.html` | Página legal del Régimen Tributario Especial (protegida, ver abajo) |
+| `public_html/rte/docs/` | PDF descargables del RTE |
 | `public_html/assets/` | CSS compilado, imágenes, logo |
 | `herramientas/` | Tailwind, pruebas (`check.js`), servidor local y scripts del deploy |
 | `herramientas/src/input.css` | Componentes de diseño (`.card`, `.btn-primary`, …) |
@@ -29,7 +29,7 @@ Solo existe la rama `main`. No crees otras ramas.
 1. **Línea gráfica.** Usa solo los colores, fuentes y componentes de `diseno/LINEA-GRAFICA.md`.
    Si piden algo que la rompe (otro color, otra fuente, un estilo distinto), explícalo y propone
    la versión que sí encaja. No inventes estilos nuevos en `input.css` sin que la persona lo pida.
-2. **Página RTE protegida.** En `transparencia/rte2026/` los datos legales (nombre, NIT, dirección,
+2. **Página RTE protegida.** En `rte/` los datos legales (nombre, NIT, dirección,
    nombres y cédulas, montos, fechas, el texto final) deben ser idénticos a los formatos 2530, 2531 y 5245
    presentados a la DIAN. Solo los cambias si la persona confirma explícitamente que el dato cambió
    en esos formatos; en ese caso actualiza también `DATOS_RTE` en `herramientas/check.js`.

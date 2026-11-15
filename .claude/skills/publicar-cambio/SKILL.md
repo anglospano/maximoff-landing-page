@@ -30,7 +30,7 @@ Si `herramientas/node_modules` no existe: `cd herramientas && npm install`.
   y copia la estructura de una sección parecida que ya exista.
 - Imágenes nuevas: guárdalas en `public_html/assets/img/` en WebP o JPG de menos de ~300 KB
   (si la persona entrega una pesada, redúcela) y con `alt` descriptivo.
-- PDF del RTE: cópialos a `public_html/transparencia/rte2026/docs/` con el nombre exacto de `LEEME.txt`.
+- PDF del RTE: cópialos a `public_html/rte/docs/` con el nombre exacto de `LEEME.txt`.
 - Si agregas una página nueva: copia el `<head>` completo de una existente y cambia título, descripción,
   canonical, `og:*` y JSON-LD; agrégala a `public_html/sitemap.xml` y enlázala desde el menú o el pie
   (rutas relativas, igual que las existentes).
