@@ -1,0 +1,8 @@
+herramientas/node_modules/
+herramientas/shots/
+.claude/settings.local.json
+.env
+*.docx
+desktop.ini
+.DS_Store
+Thumbs.db

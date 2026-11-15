@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+  body { @apply bg-base text-ink font-sans antialiased; }
+  ::selection { @apply bg-primary text-white; }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  :focus-visible { @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-base; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-page px-5 md:px-8; }
+  .eyebrow { @apply font-display text-xs font-bold uppercase tracking-[0.08em] text-primary; }
+  .card { @apply rounded-2xl border border-line/70 bg-layer1 p-6 md:p-8; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition; }
+  .btn-primary { @apply btn bg-primary text-white shadow-[0_6px_20px_rgba(229,9,20,0.35)] hover:-translate-y-0.5 hover:bg-primary-hover; }
+  .btn-ghost { @apply btn border border-line bg-layer1 text-ink hover:border-primary/60 hover:bg-highlight; }
+  .icon { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; line-height: 1; display: inline-block; font-size: 1.25em; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; }
+  .nav-link { @apply rounded-full px-4 py-2 text-sm font-semibold text-muted transition hover:bg-highlight hover:text-ink; }
+  .nav-link[aria-current='page'] { @apply bg-layer2 text-ink ring-1 ring-primary/40; }
+
+  /* Tabla RTE */
+  .rte-row { @apply grid gap-2 border-b border-line/60 py-5 md:grid-cols-[3.5rem_1fr_1.4fr] md:gap-6; }
+  .rte-num { @apply font-display text-sm font-bold text-primary; }
+  .rte-label { @apply font-display text-base font-bold text-ink; }
+  .rte-value { @apply text-[15px] leading-relaxed text-muted; }
+  .rte-value strong { @apply text-ink; }
+  .na { @apply chip border-warn/40 bg-warn/10 text-warn; }
+}
+
+@media print {
+  header, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}

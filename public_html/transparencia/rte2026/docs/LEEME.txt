@@ -1,0 +1,11 @@
+Sube aquí los PDF con estos nombres exactos (la página ya los enlaza):
+
+  formato-5245.pdf
+  constitucion-y-estatutos.pdf
+  certificado-existencia-representacion.pdf
+  acta-reforma-autorizacion-rte.pdf
+  estado-situacion-financiera-apertura.pdf
+  certificacion-antecedentes-caducidad.pdf
+
+NO subir los certificados de antecedentes de la Policía (datos personales).
+Este archivo no se sube al hosting (el deploy lo excluye).

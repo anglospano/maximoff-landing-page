@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)",
+      "Bash(git revert:*)",
+      "Bash(git remote get-url:*)",
+      "Bash(npm install)",
+      "Bash(npm ci)",
+      "Bash(npm run:*)",
+      "Bash(gh run:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin --force:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git branch:*)",
+      "Bash(git switch -c:*)",
+      "Edit(.github/**)",
+      "Edit(public_html/.htaccess)",
+      "Read(.env)"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+# Producción: cada push a main compila, prueba y sube public_html/ a GoDaddy.
+# Solo existe la rama main. Si las pruebas fallan, NO se publica nada.
+#
+# Secrets (Settings -> Environments -> produccion -> Environment secrets):
+#   FTP_SERVER          servidor FTP del hosting (cPanel de GoDaddy -> Cuentas FTP -> "Configurar cliente FTP").
+#                       Si el dominio está detrás del firewall de GoDaddy, usar la IP del hosting, no el dominio.
+#   FTP_USERNAME        cuenta FTP exclusiva para GitHub, con directorio raíz en public_html
+#   FTP_PASSWORD
+#   SUCURI_API_KEY      (opcional, solo si tiene el firewall Website Security de GoDaddy)
+#   SUCURI_API_SECRET   (opcional) con estos dos, la caché del firewall se limpia sola
+name: Deploy PROD (GoDaddy)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:          # botón "Run workflow" para volver a publicar a mano
+
+permissions:
+  contents: read
+
+concurrency:
+  group: produccion
+  cancel-in-progress: false   # nunca cortar un despliegue a producción a la mitad
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: produccion
+      url: https://fundmaximoff.org
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      # historial completo: las fechas del sitemap salen de Git
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: herramientas/package-lock.json
+
+      - name: Instalar herramientas
+        working-directory: herramientas
+        run: npm ci
+
+      - name: Compilar CSS (Tailwind)
+        working-directory: herramientas
+        run: npm run css
+
+      - name: Probar el sitio (enlaces, SEO básico y datos del RTE)
+        working-directory: herramientas
+        run: npm run probar
+
+      - name: Fechas reales en sitemap.xml (SEO)
+        run: node herramientas/fechas-sitemap.js
+
+      - name: Huella en CSS y JS (evita mezclar HTML nuevo con CSS viejo en caché)
+        run: node herramientas/versionar-assets.js
+
+      # GoDaddy (hosting compartido) a veces deja colgada la conexión FTPS. Por eso hay un reintento.
+      # La acción guarda qué subió en .ftp-deploy-sync-state.json del servidor y solo sube lo que cambió.
+      - name: Subir a GoDaddy por FTPS (solo lo que cambió)
+        id: ftp
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose       # cifrado, aunque el hosting tenga certificado autofirmado
+          local-dir: ./public_html/
+          server-dir: ./        # la cuenta FTP ya arranca dentro de public_html
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/LEEME.txt
+
+      - name: Esperar antes de reintentar
+        if: steps.ftp.outcome == 'failure'
+        run: |
+          echo "::warning::La primera subida falló (GoDaddy cortó la conexión). Reintentando en 20 s..."
+          sleep 20
+
+      - name: Subir a GoDaddy por FTPS (reintento)
+        if: steps.ftp.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          local-dir: ./public_html/
+          server-dir: ./
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/LEEME.txt
+
+      - name: Limpiar caché del firewall (Sucuri, opcional)
+        id: cache
+        env:
+          KEY: ${{ secrets.SUCURI_API_KEY }}
+          SECRET: ${{ secrets.SUCURI_API_SECRET }}
+        run: |
+          if [ -z "$KEY" ] || [ -z "$SECRET" ]; then
+            echo "Sin firewall configurado: no hay caché que limpiar."
+            echo "estado=sin-firewall" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          RESP=$(curl -sS --max-time 60 'https://wafx.sucuri.net/api?v2' \
+                   --data-urlencode "k=$KEY" --data-urlencode "s=$SECRET" --data 'a=clear_cache' || true)
+          if echo "$RESP" | grep -qE '"status" *: *1'; then
+            echo "estado=ok" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No se pudo limpiar la caché del firewall."
+            echo "estado=fallo" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resumen
+        run: |
+          {
+            echo "### ✅ Publicado en fundmaximoff.org"
+            echo ""
+            echo "Commit: \`${GITHUB_SHA::7}\` — ${{ github.event.head_commit.message || 'publicación manual' }}"
+            if [ "${{ steps.cache.outputs.estado }}" = "fallo" ]; then
+              echo ""
+              echo "Limpia la caché del firewall: godaddy.com → Website Security → Firewall → Rendimiento → **Clear Cache**"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

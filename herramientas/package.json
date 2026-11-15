@@ -1,0 +1,16 @@
+{
+  "name": "maximoff-herramientas",
+  "private": true,
+  "description": "Compila el CSS del sitio fundmaximoff.org y lo prueba",
+  "scripts": {
+    "css": "tailwindcss -c tailwind.config.js -i src/input.css -o ../public_html/assets/css/styles.css --minify",
+    "css:vivo": "tailwindcss -c tailwind.config.js -i src/input.css -o ../public_html/assets/css/styles.css --watch",
+    "servir": "node servir.js",
+    "probar": "node check.js",
+    "listo": "npm run css && npm run probar"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "tailwindcss": "^3.4.17"
+  }
+}
