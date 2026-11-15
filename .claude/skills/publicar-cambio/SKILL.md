@@ -31,8 +31,12 @@ Si `herramientas/node_modules` no existe: `cd herramientas && npm install`.
 - Imágenes nuevas: guárdalas en `public_html/assets/img/` en WebP o JPG de menos de ~300 KB
   (si la persona entrega una pesada, redúcela) y con `alt` descriptivo.
 - PDF del RTE: cópialos a `public_html/transparencia/rte2026/docs/` con el nombre exacto de `LEEME.txt`.
-- Si agregas una página nueva, agrégala también a `public_html/sitemap.xml` y enlázala desde el menú
-  o el pie (rutas relativas, igual que las existentes).
+- Si agregas una página nueva: copia el `<head>` completo de una existente y cambia título, descripción,
+  canonical, `og:*` y JSON-LD; agrégala a `public_html/sitemap.xml` y enlázala desde el menú o el pie
+  (rutas relativas, igual que las existentes).
+- **SEO:** después de editar, revisa la sección "SEO" de `CLAUDE.md`. Si el cambio altera de qué trata la
+  página (o datos de contacto/dirección), actualiza título, descripción, `og:*` y el JSON-LD.
+- Ícono nuevo de Material Symbols: agrégalo a `icon_names=` (orden alfabético) en todas las páginas.
 
 ## 4. Compilar y probar
 
@@ -42,7 +46,8 @@ npm run listo
 ```
 
 - `ERRORES` = no se puede publicar: corrígelos y vuelve a correr.
-- `AVISOS` de PDF faltantes no bloquean, pero menciónalos.
+- `AVISOS` (PDF faltantes, títulos o descripciones de largo no ideal, imágenes sin tamaño) no bloquean:
+  corrige los que tengan que ver con tu cambio y menciona los demás.
 
 ## 5. Mostrar
 

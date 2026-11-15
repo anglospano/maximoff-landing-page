@@ -43,8 +43,30 @@ Solo existe la rama `main`. No crees otras ramas.
    ni `herramientas/*.js` del deploy, sin que Luis lo autorice.
 5. **Nunca** `git push --force`, `git reset --hard` sobre trabajo ajeno, ni borrar historial.
    Nunca subas contraseñas, tokens ni archivos `.env`.
-6. **Accesibilidad:** cada imagen con `alt`, un solo `<h1>` por página, contraste del texto
+6. **SEO en cada cambio** (ver sección "SEO" abajo). `npm run probar` bloquea los errores graves.
+7. **Accesibilidad:** cada imagen con `alt`, un solo `<h1>` por página, contraste del texto
    `ink`/`muted` sobre fondo oscuro, enlaces con texto que se entienda.
+
+## SEO
+
+Cada página publicada debe tener, en su `<head>` (copia el de una página existente y ajústalo):
+
+- `<title>` único de 30–65 caracteres: lo más importante primero y "· Fundación Maximoff" al final.
+- `<meta name="description">` única de 70–160 caracteres que resuma la página.
+- `<link rel="canonical">` con la URL completa y final de la página (`https://fundmaximoff.org/ruta/`).
+- `og:title`, `og:description`, `og:url` iguales a lo anterior y `og:image` (por defecto `og-maximoff.png`).
+- Un solo `<h1>`, y los subtítulos en orden (`h2`, luego `h3`), sin saltarse niveles.
+- La página listada en `public_html/sitemap.xml` (una línea `<url><loc>…</loc><lastmod>…</lastmod></url>`).
+- Datos estructurados JSON-LD: el inicio tiene la organización (`NGO`). Si cambian dirección, teléfono o
+  correo, actualízalos **también** en ese JSON-LD. Páginas nuevas: un `WebPage` + `BreadcrumbList` como la del RTE.
+
+Cuando cambies un texto, revisa si el `<title>`, la descripción o el `og:*` de esa página siguen siendo
+ciertos y actualízalos. Usa en los textos las palabras con que la gente buscaría
+(ej. "salud mental en Cali", "fundación", "cuidadores", "Línea 106"), de forma natural, sin repetirlas de más.
+
+Imágenes: con `alt` descriptivo, `width` y `height` reales y livianas (WebP/JPG < 300 KB).
+Íconos: el `<link>` de Material Symbols trae solo los íconos de `icon_names=` (orden alfabético);
+si usas uno nuevo, agrégalo a esa lista en **todas** las páginas o se verá como texto.
 
 ## Flujo de cada cambio
 

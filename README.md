@@ -40,7 +40,7 @@ Scripts de `herramientas/`:
 | Script | Cuándo corre | Qué hace |
 |---|---|---|
 | `npm run css` | Al editar y en el deploy | Compila Tailwind a `public_html/assets/css/styles.css`. Solo incluye las clases que usan los HTML. |
-| `npm run probar` (`check.js`) | Al editar y en el deploy | Enlaces y anclas rotas, título/descripción/un `<h1>` por página, datos legales del RTE intactos y frases prohibidas (p. ej. "25 % DIAN"). Si falla, **no se publica**. |
+| `npm run probar` (`check.js`) | Al editar y en el deploy | Enlaces y anclas rotas; SEO (título, descripción, un `<h1>`, canonical, `og:*`, JSON-LD válido, `alt` en imágenes, página en el sitemap); íconos dentro de `icon_names`; datos legales del RTE intactos y frases prohibidas (p. ej. "25 % DIAN"). Si falla, **no se publica**. |
 | `fechas-sitemap.js` | Deploy | Pone en `sitemap.xml` la fecha real del último cambio de cada página, según Git. |
 | `versionar-assets.js` | Deploy | Agrega `?v=huella` a CSS y JS para que nadie vea HTML nuevo con CSS viejo. |
 
@@ -139,6 +139,18 @@ y Claude los haga respetando la línea gráfica, los pruebe y, con aprobación, 
    Fine-grained tokens) solo para este repo con permisos *Contents: Read* y *Actions: Read*, y guardarlo
    en la variable de entorno `GITHUB_PAT` del usuario (Windows: *Editar las variables de entorno de esta cuenta*).
    Sin el token todo funciona igual; solo que el agente no puede leer el estado del deploy por MCP.
+
+---
+
+### 4. Google (SEO, una vez publicado)
+
+1. [Google Search Console](https://search.google.com/search-console) → **Agregar propiedad → Dominio** → `fundmaximoff.org`.
+   Verifica con el registro TXT que indica Google (en GoDaddy: **Dominios → DNS → Agregar registro TXT**).
+2. **Sitemaps** → enviar `https://fundmaximoff.org/sitemap.xml`.
+3. **Inspección de URLs** → pegar la URL del RTE → **Solicitar indexación**.
+4. Opcional: crear el perfil de [Google Business](https://business.google.com) de la fundación con la misma dirección y teléfono.
+
+Para revisar la vista previa al compartir: [opengraph.xyz](https://www.opengraph.xyz) con la URL publicada.
 
 ---
 
