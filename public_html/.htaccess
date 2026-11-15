@@ -12,6 +12,8 @@ AddDefaultCharset UTF-8
   RewriteRule ^(.*)$ https://fundmaximoff.org/$1 [R=301,L]
   RewriteCond %{HTTP_HOST} ^www\. [NC]
   RewriteRule ^(.*)$ https://fundmaximoff.org/$1 [R=301,L]
+  # Dirección vieja del RTE -> nueva (autorizado por Luis)
+  RewriteRule ^transparencia/rte2026/?(.*)$ /rte/$1 [R=301,L,NC]
   # /index.html -> /
   RewriteCond %{THE_REQUEST} \s/(.*/)?index\.html[\s?] [NC]
   RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L,NC]

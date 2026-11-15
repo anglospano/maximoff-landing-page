@@ -103,7 +103,7 @@ function revisarSeo(url, html, enSitemap) {
     if (ancla && html && !new RegExp(`\\sid="${ancla}"`).test(html)) errores.push(`ancla rota #${ancla} en ${url}`);
   }
 
-  const rte = vistos.get("/transparencia/rte2026/") || "";
+  const rte = vistos.get("/rte/") || "";
   const textoRte = decode(rte.replace(/<[^>]+>/g, " ").replace(/\s+/g, " "));
   for (const d of DATOS_RTE) if (!textoRte.includes(d)) errores.push(`la página RTE ya no contiene: "${d}"`);
 
