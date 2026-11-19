@@ -24,7 +24,7 @@ const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"');
 // se cambian aquí Y en la página, con autorización del representante legal.
 const DATOS_RTE = [
   "Fundación Maximoff", "FUNDMAXIMOFF", "902.109.154", "Carrera 1J No. 71A 18",
-  "Jason Gómez", "1.006.016.620", "$500.000", "23 de septiembre de 2026",
+  "Jason Gómez", "1.006.016.620", "$500.000", "30 de septiembre de 2026",
   "Información publicada para comentarios de la sociedad civil, en cumplimiento del registro web del Régimen Tributario Especial",
 ];
 
